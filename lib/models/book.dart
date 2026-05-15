@@ -7,6 +7,7 @@ class Book {
   final double rating;
   final int? pages;
   final DateTime? publishedDate;
+  final String category;
 
   Book({
     required this.id,
@@ -17,6 +18,7 @@ class Book {
     this.rating = 0.0,
     this.pages,
     this.publishedDate,
+    required this.category,
   });
 
   Book copyWith({
@@ -28,6 +30,7 @@ class Book {
     double? rating,
     int? pages,
     DateTime? publishedDate,
+    String? category,
   }) {
     return Book(
       id: id ?? this.id,
@@ -38,6 +41,7 @@ class Book {
       rating: rating ?? this.rating,
       pages: pages ?? this.pages,
       publishedDate: publishedDate ?? this.publishedDate,
+      category: category ?? this.category,
     );
   }
 
@@ -51,6 +55,7 @@ class Book {
       'rating': rating,
       'pages': pages,
       'publishedDate': publishedDate?.toIso8601String(),
+      'category': category,
     };
   }
 
@@ -68,6 +73,7 @@ class Book {
       publishedDate: map['publishedDate'] != null
           ? DateTime.parse(map['publishedDate'] as String)
           : null,
+      category: map['category'] as String,
     );
   }
 

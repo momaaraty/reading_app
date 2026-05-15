@@ -1,53 +1,60 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'dart:io';
-import '../providers/auth_provider.dart';
 
-class HomePage extends StatelessWidget {
+import '../../widgets/book_card.dart';
+import '../../widgets/category_chip.dart';
+import '../../providers/books_provider.dart';
+
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      context.read<BooksProvider>().loadBooks();
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
-    final user = auth.user;
-    ImageProvider? avatarImage;
-    if (user?.profileImagePath != null) {
-      final path = user!.profileImagePath!;
-      if (path.startsWith('http')) {
-        avatarImage = NetworkImage(path);
-      } else {
-        avatarImage = FileImage(File(path));
-      }
-    }
+    final books = context.watch<BooksProvider>().filteredBooks;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            if (user != null) ...[
-              CircleAvatar(
-                radius: 36,
-                backgroundImage: avatarImage,
-                child: avatarImage == null
-                    ? const Icon(Icons.person, size: 36)
-                    : null,
-              ),
-              const SizedBox(height: 12),
-              Text(user.name),
-              const SizedBox(height: 8),
-              Text(user.email),
-              const SizedBox(height: 16),
-            ],
-            ElevatedButton(
-              onPressed: () {
-                auth.signOut();
-                Navigator.of(context).pushReplacementNamed('/login');
-              },
-              child: const Text('تسجيل الخروج'),
+      appBar: AppBar(title: const Text("الرئيسية")),
+
+      body: Column(
+        children: [
+          const SizedBox(height: 10),
+
+          const SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Row(
+              children: [
+                CategoryChip(label: "All"),
+                CategoryChip(label: "Finance"),
+                CategoryChip(label: "Self Development"),
+              ],
             ),
-          ],
-        ),
+          ),
+
+          const SizedBox(height: 20),
+
+          Expanded(
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: books.length,
+              itemBuilder: (context, i) {
+                return BookCard(book: books[i]);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
