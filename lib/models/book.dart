@@ -8,6 +8,9 @@ class Book {
   final int? pages;
   final DateTime? publishedDate;
   final String category;
+  final bool isFavorite;
+  final double readingProgress;
+
 
   Book({
     required this.id,
@@ -19,6 +22,8 @@ class Book {
     this.pages,
     this.publishedDate,
     required this.category,
+    this.isFavorite = false,
+    this.readingProgress = 0.0,
   });
 
   Book copyWith({
@@ -31,6 +36,8 @@ class Book {
     int? pages,
     DateTime? publishedDate,
     String? category,
+    bool? isFavorite,
+    double? readingProgress,
   }) {
     return Book(
       id: id ?? this.id,
@@ -42,6 +49,8 @@ class Book {
       pages: pages ?? this.pages,
       publishedDate: publishedDate ?? this.publishedDate,
       category: category ?? this.category,
+      isFavorite: isFavorite ?? this.isFavorite,
+      readingProgress: readingProgress ?? this.readingProgress,
     );
   }
 
@@ -56,6 +65,8 @@ class Book {
       'pages': pages,
       'publishedDate': publishedDate?.toIso8601String(),
       'category': category,
+      'isFavorite': isFavorite,
+      'readingProgress': readingProgress,
     };
   }
 
@@ -74,6 +85,10 @@ class Book {
           ? DateTime.parse(map['publishedDate'] as String)
           : null,
       category: map['category'] as String,
+      isFavorite: map['isFavorite'] as bool? ?? false,
+      readingProgress: (map['readingProgress'] is int)
+          ? (map['readingProgress'] as int).toDouble()
+          : (map['readingProgress'] as double? ?? 0.0),
     );
   }
 

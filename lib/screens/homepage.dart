@@ -47,8 +47,10 @@ class _HomePageState extends State<HomePage> {
 
           Expanded(
             child: ListView.builder(
-              scrollDirection: Axis.horizontal,
+              padding: const EdgeInsets.only(top: 6, bottom: 20),
+
               itemCount: books.length,
+
               itemBuilder: (context, i) {
                 return BookCard(book: books[i]);
               },
