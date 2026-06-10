@@ -191,7 +191,11 @@ class _BookDetailPageState extends State<BookDetailPage> {
 
                       child: ElevatedButton.icon(
                         onPressed: () {
-                          // open reader page
+                          Navigator.pushNamed(
+                            context,
+                            '/reading',
+                            arguments: book,
+                          );
                         },
 
                         icon: const Icon(Icons.menu_book_rounded),

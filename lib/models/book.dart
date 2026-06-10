@@ -10,7 +10,7 @@ class Book {
   final String category;
   final bool isFavorite;
   final double readingProgress;
-
+  final String? content;
 
   Book({
     required this.id,
@@ -24,6 +24,7 @@ class Book {
     required this.category,
     this.isFavorite = false,
     this.readingProgress = 0.0,
+    this.content,
   });
 
   Book copyWith({
@@ -38,6 +39,7 @@ class Book {
     String? category,
     bool? isFavorite,
     double? readingProgress,
+    String? content,
   }) {
     return Book(
       id: id ?? this.id,
@@ -51,6 +53,7 @@ class Book {
       category: category ?? this.category,
       isFavorite: isFavorite ?? this.isFavorite,
       readingProgress: readingProgress ?? this.readingProgress,
+      content: content ?? this.content,
     );
   }
 
@@ -67,6 +70,7 @@ class Book {
       'category': category,
       'isFavorite': isFavorite,
       'readingProgress': readingProgress,
+      'content': content,
     };
   }
 
@@ -89,9 +93,12 @@ class Book {
       readingProgress: (map['readingProgress'] is int)
           ? (map['readingProgress'] as int).toDouble()
           : (map['readingProgress'] as double? ?? 0.0),
+      content: map['content'] as String?,
     );
   }
 
   @override
-  String toString() => 'Book(id: $id, title: $title, author: $author)';
+  String toString() {
+    return 'Book(id: $id, title: $title, author: $author)';
+  }
 }

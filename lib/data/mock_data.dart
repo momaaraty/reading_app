@@ -11,6 +11,15 @@ class MockData {
       rating: 4.5,
       pages: 320,
       category: "Self Development",
+      content: '''
+Atomic Habits is an easy and proven way to build good habits and break bad ones.
+
+Small changes often appear to make no difference until you cross a critical threshold.
+
+Every action you take is a vote for the type of person you wish to become.
+
+Success is the product of daily habits—not once-in-a-lifetime transformations.
+''',
     ),
     Book(
       id: "2",

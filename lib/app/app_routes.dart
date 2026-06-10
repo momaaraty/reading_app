@@ -5,9 +5,11 @@ import '../screens/homepage.dart';
 import '../screens/profile/edit_profile_page.dart';
 import '../screens/suggestions_page.dart';
 import '../screens/favorites_page.dart';
+import '../screens/splash_screen.dart';
 
 class AppRoutes {
   static final routes = {
+    '/': (_) => const SplashScreen(),
     '/login': (_) => const LoginPage(),
     '/signup': (_) => const SignupPage(),
     '/reset': (_) => const ResetPasswordScreen(),

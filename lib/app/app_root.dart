@@ -10,6 +10,8 @@ import '../providers/favorites_provider.dart';
 import 'app_routes.dart';
 import 'app_theme.dart';
 import '../screens/book/book_detail_page.dart';
+import '../models/book.dart';
+import '../screens/book/reading_page.dart';
 
 class AppRoot extends StatelessWidget {
   const AppRoot({super.key});
@@ -31,12 +33,18 @@ class AppRoot extends StatelessWidget {
             theme: AppTheme.light,
             darkTheme: AppTheme.dark,
             themeMode: appState.themeMode,
-            initialRoute: '/login',
+            initialRoute: '/',
             routes: AppRoutes.routes,
             onGenerateRoute: (settings) {
               if (settings.name == '/book-details') {
                 return MaterialPageRoute(
                   builder: (_) => const BookDetailPage(),
+                  settings: settings,
+                );
+              }
+              if (settings.name == '/reading') {
+                return MaterialPageRoute(
+                  builder: (_) => ReadingPage(book: settings.arguments as Book),
                   settings: settings,
                 );
               }
